@@ -11,7 +11,7 @@ class Rfid:
 		self.card.SAMconfigure()
 		self.card.set_max_retries(MIFARE_WAIT_FOR_ENTRY) #MIFARE_WAIT_FOR_ENTRY--> it waits until entry of a card
 		uid = self.card.scan_field()
-		return uid.hex() # converts bytearray to hex string
+		return uid.hex().upper() # converts bytearray to hex string, then uppercase
 	
 
 if __name__ == "__main__":
