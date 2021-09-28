@@ -6,9 +6,9 @@ class Rfid:
 	def __init__(self):
 		self.i2c = busio.I2C(board.SCL, board.SDA)
 		self.pn532 = PN532_I2C(self.i2c, debug=False)
+		self.pn532.SAM_configuration()
 
 	def read_uid(self):
-		self.pn532.SAM_configuration()
 		self.pn532.listen_for_passive_target()
 		while True:
 			uid = self.pn532.get_passive_target()
