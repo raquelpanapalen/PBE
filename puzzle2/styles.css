@@ -1,0 +1,17 @@
+.init-label { 
+	background: blue; 
+	color: white; 
+	border-radius: 10px; 
+	font-size: 18px; 
+}
+
+.uid-label { 
+	background: red; 
+	color: white; 
+	border-radius: 10px; 
+	font-size: 18px; 
+}
+
+
+
+
