@@ -13,7 +13,7 @@ class Window(Gtk.Window):
         self.set_border_width(10)
 
         self.label = Gtk.Label(label="Please, login with your university card")
-        self.label.get_style_context().add_class("init-label") 
+        self.label.set_name("init-label") 
         self.label.set_size_request(400,100)
         box.add(self.label)
 
@@ -32,8 +32,7 @@ class Window(Gtk.Window):
         thread.start()
 
     def update_label(self):
-        self.label.get_style_context().remove_class("init-label") 
-        self.label.get_style_context().add_class("uid-label")
+        self.label.set_name("uid-label")
         self.label.set_text("UID: %s" % self.uid)
         self.button.set_sensitive(True)
     
@@ -43,8 +42,7 @@ class Window(Gtk.Window):
 
     def clear(self, button):
         self.label.set_text("Please, login with your university card")
-        self.label.get_style_context().remove_class("uid-label") 
-        self.label.get_style_context().add_class("init-label")
+        self.label.set_name("init-label")
         self.button.set_sensitive(False)
         self.start_thread()
     
