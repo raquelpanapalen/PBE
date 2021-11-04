@@ -27,23 +27,23 @@ const marks = [
 ]
 
 const tasks = [
-    { userid: '8AACFA3F', date: new Date("12/02/2021"), name: 'Control parcial', subject: 'PSVAC' },
-    { userid: '8AACFA3F', date: new Date("12/16/2021"), name: 'Pràctica 3', subject: 'DSBM' },
-    { userid: '8AACFA3F', date: new Date("12/22/2021"), name: 'CDR', subject: 'PBE' },
-    { userid: '8AACFA3F', date: new Date("12/06/2021"), name: 'Pràctica 6', subject: 'RP' },
-    { userid: 'B900B5B2', date: new Date("12/13/2021"), name: 'Control parcial', subject: 'POO' },
-    { userid: 'B900B5B2', date: new Date("12/15/2021"), name: 'Control lab', subject: 'ICOM' },
-    { userid: 'B900B5B2', date: new Date("11/28/2021"), name: 'Entregable 5', subject: 'DGD' },
-    { userid: 'B900B5B2', date: new Date("11/14/2021"), name: 'Pràctica 7', subject: 'FISE' },
-    { userid: 'B900B5B2', date: new Date("11/18/2021"), name: 'Entrega projecte', subject: 'ENTIC' },
-    { userid: 'B900B5B2', date: new Date("11/11/2021"), name: 'Pràctica 7', subject: 'AST' },
-    { userid: '0474893A616081', date: new Date("12/22/2021"), name: 'Pràctica 4', subject: 'CSL' },
-    { userid: '0474893A616081', date: new Date("12/22/2021"), name: 'Control parcial', subject: 'IPAV' },
-    { userid: '0474893A616081', date: new Date("12/22/2021"), name: 'Examen laboratori', subject: 'ONELE' },
-    { userid: '0474893A616081', date: new Date("12/22/2021"), name: 'Entrega treball', subject: 'PBE' },
-    { userid: '04C4893A616080', date: new Date("12/22/2021"), name: 'Pràctica 5', subject: 'ICOM' },
-    { userid: '04C4893A616080', date: new Date("12/22/2021"), name: 'Control lab', subject: 'FISE' },
-    { userid: '04C4893A616080', date: new Date("12/22/2021"), name: 'Control parcial', subject: 'MATEL' }
+    { userid: '8AACFA3F', date: new Date("2021-10-02"), name: 'Control parcial', subject: 'PSVAC' },
+    { userid: '8AACFA3F', date: new Date("2021-12-16"), name: 'Pràctica 3', subject: 'DSBM' },
+    { userid: '8AACFA3F', date: new Date("2021-12-22"), name: 'CDR', subject: 'PBE' },
+    { userid: '8AACFA3F', date: new Date("2021-12-06"), name: 'Pràctica 6', subject: 'RP' },
+    { userid: 'B900B5B2', date: new Date("2021-12-13"), name: 'Control parcial', subject: 'POO' },
+    { userid: 'B900B5B2', date: new Date("2021-12-15"), name: 'Control lab', subject: 'ICOM' },
+    { userid: 'B900B5B2', date: new Date("2021-11-28"), name: 'Entregable 5', subject: 'DGD' },
+    { userid: 'B900B5B2', date: new Date("2021-11-14"), name: 'Pràctica 7', subject: 'FISE' },
+    { userid: 'B900B5B2', date: new Date("2021-11-18"), name: 'Entrega projecte', subject: 'ENTIC' },
+    { userid: 'B900B5B2', date: new Date("2021-11-11"), name: 'Pràctica 7', subject: 'AST' },
+    { userid: '0474893A616081', date: new Date("2021-12-22"), name: 'Pràctica 4', subject: 'CSL' },
+    { userid: '0474893A616081', date: new Date("2021-12-22"), name: 'Control parcial', subject: 'IPAV' },
+    { userid: '0474893A616081', date: new Date("2021-12-12"), name: 'Examen laboratori', subject: 'ONELE' },
+    { userid: '0474893A616081', date: new Date("2021-12-11"), name: 'Entrega treball', subject: 'PBE' },
+    { userid: '04C4893A616080', date: new Date("2021-12-04"), name: 'Pràctica 5', subject: 'ICOM' },
+    { userid: '04C4893A616080', date: new Date("2021-11-29"), name: 'Control lab', subject: 'FISE' },
+    { userid: '04C4893A616080', date: new Date("2021-11-15"), name: 'Control parcial', subject: 'MATEL' }
 ]
 
 const timetables = [
@@ -102,4 +102,12 @@ const timetables = [
     { userid: '04C4893A616080', day: 5, hour: "11:00:00", room: 'A3-105', subject: 'CAVEC' }
 ]
 
-module.exports = { users, marks, tasks, timetables }
+const days = {
+    1: 'Mon',
+    2: 'Tue',
+    3: 'Wed',
+    4: 'Thu',
+    5: 'Fri'
+}
+
+module.exports = { users, marks, tasks, timetables, days }
