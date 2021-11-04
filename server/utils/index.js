@@ -41,4 +41,7 @@ const initDB = async () => {
     })
 }
 
-module.exports = initDB
+const getKeyByValue = (object, value) => Object.keys(object).find(key => object[key] === value)
+const hourFormat = hour => (hour.split(":").map(part => part.padStart(2,0))).join(':') // HH:mm format
+  
+module.exports = { initDB, getKeyByValue, hourFormat }

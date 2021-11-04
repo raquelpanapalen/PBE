@@ -1,23 +1,32 @@
 const express = require('express')
 const router = express.Router()
 const Timetable = require('../models/timetable')
-const { days } = require('../utils/testdata')
+const { getKeyByValue, hourFormat } = require('../utils/index')
+
+const days = {
+    1: 'Mon',
+    2: 'Tue',
+    3: 'Wed',
+    4: 'Thu',
+    5: 'Fri'
+}
 
 router.get('/:id/timetables', async (req, res) => {
     const query = req.query
     query.userid = req.params.id
-    let limit = ('limit' in query) ? parseInt(Object.values(query.limit)[0]) : -1
+    const limit = ('limit' in query) ? parseInt(Object.values(query.limit)[0]) : 0
     
-    if ('hour' in query) {
+    if ('hour' in query && 'day' in query) {
         const restriction = `$${Object.keys(query.hour)[0]}`
-        const hour = Object.values(query.hour)[0]
-        query.hour = { [restriction] : (hour.split(":").map(part => part.padStart(2,0))).join(':')+':00' }
-        limit = 1
+        query.hour = { [restriction] :  hourFormat(Object.values(query.hour)[0])}
+        query.day = parseInt(getKeyByValue(days, query.day)) 
+        var timetableInfo = await Timetable.find(query).limit(1)
     }
-    if ('day' in query) {
-        query.day = parseInt(Object.keys(days).find(key => days[key] === query.day)) 
-        var timetableInfo = await Timetable.find(query).sort({'day': 1, 'hour': 1}) 
-    } else {
+    else if ('day' in query) {
+        query.day = parseInt(getKeyByValue(days, query.day)) 
+        var timetableInfo = await Timetable.find(query).sort({'day': 1, 'hour': 1}).limit(limit) 
+    } 
+    else {
         const now = new Date()
         const day = now.getDay()
         const hh = now.getHours().toString().padStart(2,0)
@@ -34,12 +43,13 @@ router.get('/:id/timetables', async (req, res) => {
         
         query.day = { $eq: day }
         const elementsToday = await Timetable.find(query).count()
-        for (var i = 1; i < elementsToday; i++) {
+        for (var i = 0; i < elementsToday; i++) {
             if (timetableInfo[i].hour < hour) {
                 var e = timetableInfo.shift()
                 timetableInfo.push(e)
             }
         }
+        timetableInfo = limit == 0 ? timetableInfo : timetableInfo.slice(0, limit)
     }
        
     const timetables = timetableInfo.map(t => {
@@ -51,6 +61,6 @@ router.get('/:id/timetables', async (req, res) => {
         }
         return timetable
     })
-    res.send(limit == -1 ? timetables : timetables.slice(0, limit))
+    res.send(timetables)
 })
 module.exports = router

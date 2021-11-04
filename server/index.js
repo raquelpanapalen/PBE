@@ -3,7 +3,7 @@ const cors = require("cors")
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const initDB = require('./utils/index')
+const { initDB } = require('./utils/index')
 
 const DATABASE_URL = process.env.DATABASE_URL
 const PORT = process.env.PORT || 3001
