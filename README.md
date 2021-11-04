@@ -17,6 +17,11 @@ Needs: npm, nodejs, mongodb
 - `git clone https://github.com/raquelpanapalen/PBE.git && cd PBE/server`
 - `npm install`
 - `sudo service mongod start`
+- Create .env file with `PORT` and `DATABASE_URL` fields. Example:
+```
+PORT = 3001
+DATABASE_URL = 'mongodb://localhost/pbe'
+```
 
 Dev mode (nodemon):
 - To create testdata in DB: `npm run devStart --create_testdata=true`
