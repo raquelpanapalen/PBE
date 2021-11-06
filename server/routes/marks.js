@@ -13,9 +13,9 @@ router.get('/:id/marks', async (req, res) => {
     const marksInfo = await Mark.find(query).sort('subject')
     const marks = marksInfo.map(m => {
         const mark = {
-            mark: m.mark,
+            subject: m.subject,
             name: m.name,
-            subject: m.subject
+            mark: m.mark.toFixed(1)
         }
         return mark
     })
