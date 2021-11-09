@@ -2,10 +2,11 @@ import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk, Gdk, GLib
 import requests
+from requests.exceptions import *
 import threading
 import time
 from puzzle1_pynfc import Rfid
-#import lcd_drivers
+import lcd_drivers
 
 class TreeView(Gtk.TreeView):
     def __init__(self, info):
@@ -22,10 +23,17 @@ class TreeView(Gtk.TreeView):
 class MyApplication(Gtk.Window):
     def __init__(self):
         super().__init__(title="Course manager")
-        self.DOMAIN = 'http://10.42.0.1:3001'
+        self.DOMAIN = 'http://localhost:3001'
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_default_size(800, 600)
         self.set_border_width(50)
+
+        self.error_text = ""
+        self.dialog = Gtk.MessageDialog(text="Error Warning", parent = self)
+        self.dialog.add_button("_Close", Gtk.ResponseType.CLOSE)
+        self.dialog.set_default_size(500, 100)
+
+
         
         self.nfc_reader = Rfid()
         self.display_login()
@@ -52,12 +60,21 @@ class MyApplication(Gtk.Window):
 
     def scan_uid(self):
         self.uid = self.nfc_reader.read_uid()
-        self.username = self.get_username(self.uid)
-        GLib.idle_add(self.on_tag)
+        try:
+            self.username = self.get_username(self.uid)
+        except HTTPError as err:
+            print(err)
+            GLib.idle_add(self.show_error,str(err))	
+        except (ConnectionError):
+            print("Unable to connect. Server is not up")
+            GLib.idle_add(self.show_error, "Unable to connect. Server is not up")
+        else:
+            GLib.idle_add(self.on_tag)
 
     def get_username(self,id):
-        r = requests.get(self.DOMAIN+'/'+id).json()
-        return r["username"]
+        r = requests.get(self.DOMAIN+'/'+id)
+        r.raise_for_status()
+        return r.json()["username"]
 
     def create_dashboard(self):
         self.box = Gtk.Grid(column_homogeneous=True,column_spacing=10,row_spacing=100) 
@@ -79,9 +96,18 @@ class MyApplication(Gtk.Window):
         self.start_thread(self.get_data, (query,))
 
     def get_data(self, query):
-        self.info = requests.get(self.DOMAIN+'/'+self.uid+'/'+query).json()
-        GLib.idle_add(self.display_info)
-
+        try: 
+            req = requests.get(self.DOMAIN+'/'+self.uid+'/'+query)
+            req.raise_for_status()
+            self.info = req.json()
+        except HTTPError as err:
+            print(err)
+            GLib.idle_add(self.show_error, str(err))	
+        except (ConnectionError):
+            print("Unable to connect. Server is not up")
+            GLib.idle_add(self.show_error, "Unable to connect. Server is not up")	
+        else:
+            GLib.idle_add(self.display_info)
     def display_info(self):
         self.remove(self.box)
         self.create_table()
@@ -92,10 +118,6 @@ class MyApplication(Gtk.Window):
         self.display_login()
         self.start_thread(self.scan_uid)
         self.show_all()
-                   
-    def error_message(self):
-        self.current_page.label.set_text("Error, no existe este usuario")
-        self.current_page.label.set_name("error-label")
     
     def create_table(self):
         self.box = Gtk.Grid(column_homogeneous=True,column_spacing=10,row_spacing=15) 
@@ -116,8 +138,18 @@ class MyApplication(Gtk.Window):
         self.scrollable = Gtk.ScrolledWindow()
         self.box.attach(self.scrollable, 0, 2, 6, 15)
     
-        self.treeview = TreeView(self.info)
-        self.scrollable.add(self.treeview) 
+        if len(self.info) > 0:
+            self.treeview = TreeView(self.info)
+            self.scrollable.add(self.treeview)
+        else:
+            print("Empty collection")
+            GLib.idle_add(self.show_error, "Empty collection")
+
+    def show_error(self, error):
+        self.error_label = error
+        self.dialog.format_secondary_text(self.error_label)		
+        self.dialog.run()
+        self.dialog.hide()
 
 
 if __name__ == "__main__":
