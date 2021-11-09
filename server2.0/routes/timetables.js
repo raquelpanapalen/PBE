@@ -46,6 +46,8 @@ const getTimetables = async (db, query, search) => {
             if (timetableInfo[i].hour < hour) {
                 var e = timetableInfo.shift()
                 timetableInfo.push(e)
+            } else {
+                break
             }
         }
         timetableInfo = limit == 0 ? timetableInfo : timetableInfo.slice(0, limit)
