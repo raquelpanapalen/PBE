@@ -37,7 +37,12 @@ const server = http.createServer(async (req, res) => {
     if (req.method == 'GET') {
         if (reqPath.length == 1) {
             const user = await getUser(db, parsed.query, parsed.search)
-            res.end(JSON.stringify(user))
+            if (user != null) {
+                res.end(JSON.stringify(user))
+            } else {
+                res.writeHead(404)
+                res.end(`User with ID ${parsed.query.userid} not found in DB.`)
+            }
         }
         else if (reqPath[1] == 'tasks') {
             const tasks = await getTasks(db, parsed.query, parsed.search)
@@ -50,13 +55,11 @@ const server = http.createServer(async (req, res) => {
             res.end(JSON.stringify(timetables))
         } else {
             res.writeHead(400)
-            //res.write()
-            res.end('Bad request.')
+            res.end(`No data related to: ${reqPath[1]}. Write "marks", "tasks" or "timetables" to see some content.`)
         }
     } else {
-        res.writeHead(400, {'Content-Type': 'application/json'})
-        res.write('Bad request. Cannot POST')
-        res.end()
+        res.writeHead(400)
+        res.end('Cannot POST.')
     }
 })
 
