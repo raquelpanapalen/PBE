@@ -7,11 +7,15 @@ GET http://localhost:3001/8AACFA3F/marks
 ###
 GET http://localhost:3001/8AACFA3F/marks?mark[lt]=6
 ###
+GET http://localhost:3001/8AACFA3F/marks?mark[lt]=6&subject=PBE
+###
 GET http://localhost:3001/8AACFA3F/marks?subject=RP
 ###
 
 // TASKS
 GET http://localhost:3001/8AACFA3F/tasks
+###
+GET http://localhost:3001/8AACFA3F/tasks?subject=PSVAC
 ###
 GET http://localhost:3001/8AACFA3F/tasks?date=2021-12-16
 ###
@@ -21,9 +25,13 @@ GET http://localhost:3001/8AACFA3F/tasks?date[gte]=now&limit=2
 // TIMETABLES
 GET http://localhost:3001/8AACFA3F/timetables
 ###
+GET http://localhost:3001/8AACFA3F/timetables?subject=RP
+###
 GET http://localhost:3001/8AACFA3F/timetables?limit=1
 ###
 GET http://localhost:3001/8AACFA3F/timetables?day=Fri&hour[gt]=8:00
 ###
 GET http://localhost:3001/8AACFA3F/timetables?day=Fri
+###
+GET http://localhost:3001/8AACFA3F/timetables?day=Fri&subject=DSBM
 ###

@@ -9,23 +9,25 @@ const days = {
 }
 const getTimetables = async (db, query, search) => {
     let limit = 0
+    const match = search != null ? search.match(/\[(.*)\]/) : null
     if ('limit' in query) {
         limit = parseInt(Object.values(query.limit)[0])
         delete query['limit']
     }
-
-    const match = search != null ? search.match(/\[(.*)\]/) : null
-    if (match != null & 'day' in query) {
+    if ('day' in query) {
+        query.day = parseInt(getKeyByValue(days, query.day))
+    }
+    if ('hour' in query && match == null) {
+        query.hour = hourFormat(query.hour)
+    }
+    
+    if (match != null) {
         const restriction = `$${match.pop()}`
         const hourString = `hour${match.pop()}`
-        query.hour = {[restriction]: hourFormat(Object.values(query[hourString])[0])}
+        query.hour = {[restriction]: hourFormat(query[hourString])}
         delete query[hourString]
-        query.day = parseInt(getKeyByValue(days, query.day)) 
         var timetableInfo = await db.collection('timetables').find(query).limit(1).toArray() 
-    } else if ('day' in query) {
-        query.day = parseInt(getKeyByValue(days, query.day)) 
-        var timetableInfo = await db.collection('timetables').find(query).sort({'day': 1, 'hour': 1}).limit(limit).toArray()
-    } else {
+    } else if (Object.keys(query).length == 1) { // only userid
         const now = new Date()
         const day = now.getDay()
         const hh = now.getHours().toString().padStart(2,0)
@@ -51,6 +53,8 @@ const getTimetables = async (db, query, search) => {
             }
         }
         timetableInfo = limit == 0 ? timetableInfo : timetableInfo.slice(0, limit)
+    } else {
+        var timetableInfo = await db.collection('timetables').find(query).sort({'day': 1, 'hour': 1}).limit(limit).toArray()
     }
        
     return timetableInfo.map(t => {

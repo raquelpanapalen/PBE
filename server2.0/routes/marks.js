@@ -3,7 +3,7 @@ const getMarks = async (db, query, search) => {
     if (match != null) {
         const restriction = `$${match.pop()}`
         const markString = `mark${match.pop()}`
-        const number = parseInt(query[markString])
+        const number = parseFloat(query[markString])
         delete query[markString]
         query.mark = { [restriction] : number }
     }
