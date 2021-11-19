@@ -5,7 +5,6 @@ import requests
 from requests.exceptions import *
 import threading
 from threading import Timer
-import time
 from puzzle1_pynfc import Rfid
 import lcd_drivers
 
