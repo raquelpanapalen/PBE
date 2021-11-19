@@ -1,8 +1,7 @@
 require('dotenv').config()
 const http = require('http')
-const url = require("url")
 const mongoClient = require('mongodb').MongoClient
-const { initDB } = require('./utils/index')
+const { initDB, parseParams } = require('./utils/index')
 const getMarks = require('./routes/marks')
 const getUser = require('./routes/users')
 const getTasks = require('./routes/tasks')
@@ -30,28 +29,31 @@ const server = http.createServer(async (req, res) => {
     const client = await mongoClient.connect(DATABASE_URL)
     const db = client.db('pbe')
     res.setHeader('Access-Control-Allow-Origin', '*')
-    const parsed = url.parse(req.url, true)
-    const reqPath = parsed.pathname.split('/')
+    
+    const url = new URL(req.url, `http://${req.headers.host}`)
+    const query = parseParams(url.search)
+    const reqPath = url.pathname.split('/')
     reqPath.shift()
-    parsed.query.userid = reqPath[0]
+    query.userid = reqPath[0]
+    const decodedURI = decodeURI(url.search)
     if (req.method == 'GET') {
         if (reqPath.length == 1) {
-            const user = await getUser(db, parsed.query, parsed.search)
+            const user = await getUser(db, query, decodedURI)
             if (user != null) {
                 res.end(JSON.stringify(user))
             } else {
                 res.writeHead(404)
-                res.end(`User with ID ${parsed.query.userid} not found in DB.`)
+                res.end(`User with ID ${query.userid} not found in DB.`)
             }
         }
         else if (reqPath[1] == 'tasks') {
-            const tasks = await getTasks(db, parsed.query, parsed.search)
+            const tasks = await getTasks(db, query, decodedURI)
             res.end(JSON.stringify(tasks))
         } else if (reqPath[1] == 'marks') {
-            const marks = await getMarks(db, parsed.query, parsed.search)
+            const marks = await getMarks(db, query, decodedURI)
             res.end(JSON.stringify(marks))
         } else if (reqPath[1] == 'timetables') {
-            const timetables = await getTimetables(db, parsed.query, parsed.search)
+            const timetables = await getTimetables(db, query, decodedURI)
             res.end(JSON.stringify(timetables))
         } else {
             res.writeHead(400)

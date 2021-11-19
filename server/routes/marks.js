@@ -7,7 +7,7 @@ router.get('/:id/marks', async (req, res) => {
     query.userid = req.params.id
     if ('mark' in query) {
         const restriction = `$${Object.keys(query.mark)[0]}`
-        const number = parseInt(Object.values(query.mark)[0])
+        const number = parseFloat(Object.values(query.mark)[0])
         query.mark = { [restriction] : number }
     }
     const marksInfo = await Mark.find(query).sort('subject')

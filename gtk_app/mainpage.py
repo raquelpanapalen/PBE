@@ -5,7 +5,6 @@ import requests
 from requests.exceptions import *
 import threading
 from threading import Timer
-import time
 from puzzle1_pynfc import Rfid
 import lcd_drivers
 
@@ -18,7 +17,11 @@ class TreeView(Gtk.TreeView):
         super().__init__(model = self.model)
         
         for i, key in enumerate(info[0].keys()):
-            col = Gtk.TreeViewColumn(key, Gtk.CellRendererText(single_paragraph_mode=True), text=i)
+            renderer = Gtk.CellRendererText(single_paragraph_mode=True)
+            renderer.set_alignment(0.5, 0.5)
+            col = Gtk.TreeViewColumn(key, renderer, text=i)
+            col.set_expand(True)
+            col.set_alignment(0.5)
             self.append_column(col)
 
 class MyApplication(Gtk.Window):
@@ -38,7 +41,7 @@ class MyApplication(Gtk.Window):
         self.nfc_reader = Rfid()
         self.display_login()
         self.start_thread(self.scan_uid)
-        #self.display = drivers.Lcd()
+        self.display = lcd_drivers.Lcd()
         
     def display_login(self):
         self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -58,6 +61,7 @@ class MyApplication(Gtk.Window):
         self.timer.start()
     
     def on_tag(self):
+        self.display.show_lines("Welcome             "+self.username)
         self.remove(self.box)
         self.create_dashboard()
         self.show_all()
@@ -79,12 +83,14 @@ class MyApplication(Gtk.Window):
 
     def create_dashboard(self):
         self.start_timer()
-        self.box = Gtk.Grid(column_homogeneous=True,column_spacing=10,row_spacing=100) 
+        self.box = Gtk.Grid(column_homogeneous=True,column_spacing=10,row_spacing=50) 
         self.add(self.box)
-        welcome_text = Gtk.Label(label="Welcome %s" % self.username) 
+        welcome_text = Gtk.Label(label="Welcome %s" % self.username)
+        welcome_text.set_name("welcome_text")
         self.box.attach(welcome_text,0,0,2,1)
 
         logout = Gtk.Button(label="Logout")
+        logout.set_name("Logout")
         logout.connect("clicked", self.on_logout)
         self.box.attach(logout,5,0,1,1)
 
@@ -126,10 +132,12 @@ class MyApplication(Gtk.Window):
         self.box = Gtk.Grid(column_homogeneous=True,column_spacing=10,row_spacing=15) 
         self.add(self.box)
         
-        welcome_text = Gtk.Label(label="Welcome %s" % self.username) 
+        welcome_text = Gtk.Label(label="Welcome %s" % self.username)
+        welcome_text.set_name("welcome_text")
         self.box.attach(welcome_text,0,0,2,1)
 
         logout = Gtk.Button(label="Logout")
+        logout.set_name("Logout")
         logout.connect("clicked", self.on_logout)
         self.box.attach(logout,5,0,1,1)
 
@@ -139,16 +147,18 @@ class MyApplication(Gtk.Window):
         self.box.attach(entry,0,1,6,1)
 
         self.scrollable = Gtk.ScrolledWindow()
-        self.box.attach(self.scrollable, 0, 2, 6, 15)
+        self.box.attach(self.scrollable, 0, 2, 6, 25)
     
         if len(self.info) > 0:
             self.treeview = TreeView(self.info)
+            self.treeview.columns_autosize()
             self.scrollable.add(self.treeview)
         else:
             self.show_error("NOT FOUND", "No data matches your query.")
 
     def show_error(self, reason, text):
         self.dialog.set_markup("<span><b>%s</b></span>" % reason.upper())
+        self.dialog.set_name("dial")
         self.dialog.format_secondary_text(text)
         self.dialog.run()
         self.dialog.hide()

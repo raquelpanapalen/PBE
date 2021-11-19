@@ -1,6 +1,74 @@
-#init-label { 
-	background: blue; 
-	color: white; 
-	border-radius: 10px; 
-	font-size: 18px; 
+grid {
+    color: black; 
+    border-radius: 20px; 
+    font-size: 18px;
+    background: white;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+entry{
+    color: red;
+    font-family: Arial;
+    margin: 0px 32px;
+    border-radius: 15px;
+}
+
+button#Logout { 
+    font-family: Arial;
+    color: white;
+    background: #0000ff;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 100px;    
+    margin-top: 20px; 
+    margin-right: 20px;
+}
+
+button#Logout:hover { 
+    color: white;
+    background: black;
+}
+
+label#welcome_text { 
+    font-family: Arial;
+    color: blue;
+    margin-top: 20px; 
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+label#init-label { 
+    font-family: Arial;
+    color: white;
+    background: blue;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+treeview.view label {
+    font-family: Arial;
+    font-size: 20px;
+    color: white;
+}
+
+treeview.view button {
+    background: blue;
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#dial button{
+    background: red;
+    color: white;
+    border-radius: 15px;
+}
+
+#dial button:hover{
+    background: black;
+    color: white;
+    border-radius: 15px;
 }

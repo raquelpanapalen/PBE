@@ -27,5 +27,15 @@ const initDB = (db) => {
 
 const getKeyByValue = (object, value) => Object.keys(object).find(key => object[key] === value)
 const hourFormat = hour => (hour.split(":").map(part => part.padStart(2,0))).join(':') // HH:mm format
+
+const parseParams = (querystring) => {
+    const params = new URLSearchParams(querystring)
+    const obj = {}
+    for (const key of params.keys()) {
+        obj[key] = params.get(key)
+    }
+    
+    return obj
+}
   
-module.exports = { initDB, getKeyByValue, hourFormat }
+module.exports = { initDB, getKeyByValue, hourFormat, parseParams }
