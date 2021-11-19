@@ -35,10 +35,10 @@ const server = http.createServer(async (req, res) => {
     const reqPath = url.pathname.split('/')
     reqPath.shift()
     query.userid = reqPath[0]
-    const decodedURI = decodeURI(url.search)
+
     if (req.method == 'GET') {
         if (reqPath.length == 1) {
-            const user = await getUser(db, query, decodedURI)
+            const user = await getUser(db, query)
             if (user != null) {
                 res.end(JSON.stringify(user))
             } else {
@@ -47,13 +47,13 @@ const server = http.createServer(async (req, res) => {
             }
         }
         else if (reqPath[1] == 'tasks') {
-            const tasks = await getTasks(db, query, decodedURI)
+            const tasks = await getTasks(db, query, url.search)
             res.end(JSON.stringify(tasks))
         } else if (reqPath[1] == 'marks') {
-            const marks = await getMarks(db, query, decodedURI)
+            const marks = await getMarks(db, query, url.search)
             res.end(JSON.stringify(marks))
         } else if (reqPath[1] == 'timetables') {
-            const timetables = await getTimetables(db, query, decodedURI)
+            const timetables = await getTimetables(db, query, url.search)
             res.end(JSON.stringify(timetables))
         } else {
             res.writeHead(400)
