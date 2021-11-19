@@ -42,7 +42,7 @@ class MyApplication(Gtk.Window):
         self.nfc_reader = Rfid()
         self.display_login()
         self.start_thread(self.scan_uid)
-        self.display = drivers.Lcd()
+        self.display = lcd_drivers.Lcd()
         
     def display_login(self):
         self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
