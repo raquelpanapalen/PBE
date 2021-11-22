@@ -174,22 +174,23 @@ class Lcd:
         elif state == 0:
             self.lcd.write_cmd(LCD_NOBACKLIGHT)
             
-    def show_lines(self,message, long):
-       display = self
-       if(long<=20):
-            display.lcd_display_string(message,1)
-       elif(long<=40):
-            display.lcd_display_string(message[:20],1)
-            display.lcd_display_string(message[20:long],2)
-       elif(long<=60):
-            display.lcd_display_string(message[:20],1)
-            display.lcd_display_string(message[20:40],2)
-            display.lcd_display_string(message[40:long],3)
-       elif(long<=80):
-            display.lcd_display_string(message[:20],1)
-            display.lcd_display_string(message[20:40],2)
-            display.lcd_display_string(message[40:60],3)
-            display.lcd_display_string(message[60:long],4)
+    def show_lines(self,message):
+        long = len(message)
+        display = self
+        if(long<=20):
+                display.lcd_display_string(message,1)
+        elif(long<=40):
+                display.lcd_display_string(message[:20],1)
+                display.lcd_display_string(message[20:long],2)
+        elif(long<=60):
+                display.lcd_display_string(message[:20],1)
+                display.lcd_display_string(message[20:40],2)
+                display.lcd_display_string(message[40:long],3)
+        elif(long<=80):
+                display.lcd_display_string(message[:20],1)
+                display.lcd_display_string(message[20:40],2)
+                display.lcd_display_string(message[40:60],3)
+                display.lcd_display_string(message[60:long],4)
 
 class CustomCharacters:
     def __init__(self, lcd):
