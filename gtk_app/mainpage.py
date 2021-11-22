@@ -61,6 +61,7 @@ class MyApplication(Gtk.Window):
         self.timer.start()
     
     def on_tag(self):
+        self.display.lcd_clear()
         self.display.show_lines("Welcome             "+self.username)
         self.remove(self.box)
         self.create_dashboard()
