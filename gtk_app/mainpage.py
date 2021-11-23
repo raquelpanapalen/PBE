@@ -61,7 +61,6 @@ class MyApplication(Gtk.Window):
         self.timer.start()
     
     def on_tag(self):
-        self.display.lcd_clear()
         self.display.show_lines("Welcome             "+self.username)
         self.remove(self.box)
         self.create_dashboard()
@@ -74,6 +73,7 @@ class MyApplication(Gtk.Window):
             GLib.idle_add(self.on_tag)
         except HTTPError as e:
             GLib.idle_add(self.show_error, e.response.reason, e.response.text)
+            self.start_thread(self.scan_uid)
         except (ConnectionError):
             GLib.idle_add(self.show_error, "SERVICE UNAVAILABLE", "Unable to connect: server is not up.")
             
@@ -123,6 +123,7 @@ class MyApplication(Gtk.Window):
         self.show_all()
             
     def on_logout(self,button = None):
+        self.display.lcd_clear()
         self.remove(self.box)
         self.timer.cancel()
         self.display_login()
