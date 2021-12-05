@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android App</string>
+    <string name="welcome_message">Welcome, %1$s!</string>
 </resources>

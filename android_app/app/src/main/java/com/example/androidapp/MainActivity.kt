@@ -1,12 +1,12 @@
 package com.example.androidapp
+import android.content.Intent
 import kotlinx.android.synthetic.main.activity_main.*
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.EditText
-import android.widget.Toast
-import com.android.volley.toolbox.Volley
+import com.android.volley.Response
+import org.json.JSONArray
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,10 +14,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         login_button.setOnClickListener {
-            val url = findViewById<EditText>(R.id.url_address).text
-            val username = findViewById<EditText>(R.id.username).text
-            val password = findViewById<EditText>(R.id.password).text
-            // TODO: send request
+            val url = url_address_field.text.toString() //val url = "http://192.168.1.53:3001"
+            val apiHandler = APIHandler(this, url)
+
+            val username = username_field.text.toString()
+            val userid = password_field.text.toString() //val userid = "8AACFA3F"
+
+            // Auth
+            apiHandler.authenticate(userid) {
+                println(it)
+                val intent = Intent(this, DashboardActivity::class.java).apply {
+                    putExtra("url", url)
+                    putExtra("userid", it.getString("id"))
+                    putExtra("username", it.getString("username"))
+                }
+                startActivity(intent)
+            }
+
         }
     }
 }
