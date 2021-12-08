@@ -4,8 +4,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.android.volley.Response
-import org.json.JSONArray
 
 
 class MainActivity : AppCompatActivity() {

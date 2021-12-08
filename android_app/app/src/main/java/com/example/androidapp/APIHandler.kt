@@ -1,6 +1,5 @@
 package com.example.androidapp
 import android.content.Context
-import android.net.wifi.p2p.WifiP2pManager
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.Response

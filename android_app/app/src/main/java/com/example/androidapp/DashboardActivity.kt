@@ -3,16 +3,11 @@ package com.example.androidapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import org.json.JSONArray
-import org.json.JSONObject
-import org.json.JSONException
 
 
 
