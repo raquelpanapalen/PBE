@@ -48,6 +48,9 @@ class DashboardActivity : AppCompatActivity() {
     private fun createTable(jsonArray: JSONArray) {
         table_layout.removeAllViews()
         var row = TableRow(this)
+
+        row.setBackgroundColor(getResources().getColor(R.color.purple_200))
+
         var jsonObject = jsonArray.getJSONObject(0)
         var iterator: Iterator<String> = jsonObject.keys()
         while (iterator.hasNext()) {
