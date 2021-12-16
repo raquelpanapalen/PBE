@@ -1,5 +1,6 @@
 require('dotenv').config()
 const http = require('http')
+const { randomUUID } = require('crypto')
 const mongoClient = require('mongodb').MongoClient
 const { initDB, parseParams } = require('./utils/index')
 const getMarks = require('./routes/marks')
@@ -10,6 +11,8 @@ const getTimetables = require('./routes/timetables')
 const DATABASE_URL = process.env.DATABASE_URL
 const PORT = process.env.PORT || 3001
 const CREATE_TESTDATA = process.env.npm_config_create_testdata
+
+var sessions = {}
 
 mongoClient.connect(DATABASE_URL, function(err, client) {
     if (err) {
@@ -37,9 +40,40 @@ const server = http.createServer(async (req, res) => {
     query.userid = reqPath[0]
 
     if (req.method == 'GET') {
-        if (reqPath.length == 1) {
+        if(reqPath[0] == "index.html" || reqPath[0] == "resources"){
+            res.writeHead(200)
+            if(reqPath[0] == "index.html" && req.headers.cookie != undefined){
+                delete sessions[req.headers.cookie.split('=')[1]]
+                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + parsed.pathname, function(err, data){
+                    if(err){
+                        res.write('Index not found')
+                    } else {
+                        res.write(data)
+                    }
+                    res.end()
+                })
+            }
+            if(reqPath[1] == "pages" && (req.headers.cookie == undefined || (sessions[req.headers.cookie.split('=')[1]] == undefined))){
+                console.log()
+                res.write('Access restricted')
+                res.end()                
+            } else {
+                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + parsed.pathname, function(err, data){
+                    if(err){
+                        res.write('Index not found')
+                    } else {
+                        res.write(data)
+                    }
+                    res.end()
+                })
+            }
+        }
+        else if (reqPath.length == 1) {
             const user = await getUser(db, query)
             if (user != null) {
+                var uuid = randomUUID()
+                res.setHeader('Set-Cookie', 'session-id=' + uuid)
+                sessions[uuid] = user.username
                 res.end(JSON.stringify(user))
             } else {
                 res.writeHead(404)

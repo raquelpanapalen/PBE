@@ -2,7 +2,8 @@ const users = [
     { userid: '8AACFA3F', username: 'Llavero Azul' },
     { userid: 'B900B5B2', username: 'Tarjeta blanca' },
     { userid: '0474893A616081', username: 'Etiqueta NFC 1' },
-    { userid: '04C4893A616080', username: 'Etiqueta NFC 2' }
+    { userid: '04C4893A616080', username: 'Etiqueta NFC 2' },
+    { userid: 'Joel', username: 'nicogatogordo' , password: 'nicogatogordo2'}
 ]
 
 const marks = [

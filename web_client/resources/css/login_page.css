@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+}
+  
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background-color: black;
+}
+
+
+.login-widget {
+    height: 500px;
+    width: 30%;     
+    padding: 40px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #03bfb5;
+    border-width: 3px;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align:center;
+    flex-grow: 1;
+
+}
+
+.image {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    width: 10%;
+    height: auto;
+}
+
+.login-title {
+    position: relative;
+    color: white;
+    object-fit: cover;
+}
+.login-form {
+    position: relative;
+    flex-grow:1;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.form-div {
+    position: relative;
+    text-align: center;
+    display: block;
+}
+
+
+.login-form-field {
+    position: relative;
+    border-radius: 15px;
+    border: white;
+    padding: 1%;
+    margin-top: 5vh;
+    text-align: center;
+    /* display: block; */
+    width: 85%;
+}
+
+.login {
+    position: relative;
+    top: 10%;
+    height: 50vh;
+    width: 30vw;
+    display:flex; 
+    flex-direction:column;
+}
+
+.submit-button{
+    position: absolute;
+    top: 45%;
+    left: 40%;
+}
+
+.submit-button input {
+    background: url(../images/arrow.png) no-repeat;
+    background-size: 90px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    border: none;
+    position: relative;
+}
+
+.submit-button:hover input {
+    background: url(../images/arrow-hover.png) no-repeat;
+    background-size: 90px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    border: none;
+    position: relative;
+}
+
+.submit-button:active input {
+    background: url(../images/arrow-active.png) no-repeat;
+    background-size: 90px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    border: none;
+    position: relative;
+} 
+
+
+.login-form-field:focus {
+    outline: solid;
+    outline-color: #03bfb5;
+    outline-width: 2.5px;
+}
+
+.welcome-text {
+    color: grey;
+    font-size: 23px;
+}
+
+
+/*Phone display*/
+
+@media only screen and (max-width: 768px) {
+    [class*="login-widget"] {
+        width: 100%;
+    }
+    [class*="image"] {
+        width: 30%;
+    }
+}

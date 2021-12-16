@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Query Page</title>
+  <link rel="stylesheet" href="../css/query_page.css">
+  <script type="text/javascript" src="../js/queryPage.js"></script>
+  <script type="text/javascript" src="../js/logout_script.js"></script>
+
+</head>
+
+<body>
+  <div class="logout-button_div">
+    <button class= "logout-button" onclick=on_logout()>
+      <h3>Logout</h3> 
+    </button>
+  </div>
+
+  <div class="div-container" id="div-container">
+    <div class="welcome-message-div" id="welcome-message-div">
+      <h4 class="welcome-message" id="welcome-text">Welcome again!</h4>
+      <h5 id="username" class="welcome-message"> </h5>
+    </div>
+
+    <script>
+      diplayUsername();
+    </script>
+
+    <form class="query-form" id="query-form">
+      <div class="query-widget">
+        <input type="text" id="query-entry" class="query-entry" name="Query" placeholder="Enter your query" >
+        <div>
+          <input class="send-query" type="button" name="" value="Send query" onclick="httprequestquery()">Send query</input>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+
+</body>
+
+</html>
