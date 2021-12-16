@@ -26,8 +26,8 @@ class APIHandler(context: Context, domain: String) {
         queue.add(jsonArrayRequest)
     }
 
-    fun authenticate(userid: String, responseListener:  Response.Listener<JSONObject>) {
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, "$DOMAIN/$userid", null,
+    fun authenticate(credentials: String, responseListener:  Response.Listener<JSONObject>) {
+        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, "$DOMAIN/$credentials", null,
             responseListener,
             { error ->
                 Toast.makeText(context, String(error.networkResponse.data), Toast.LENGTH_LONG).show()

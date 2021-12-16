@@ -46,16 +46,17 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun createTable(jsonArray: JSONArray) {
+        if (jsonArray.length() == 0){
+            Toast.makeText(this, "No data matches your query.", Toast.LENGTH_LONG).show()
+            return
+        }
         table_layout.removeAllViews()
         var row = TableRow(this)
-
-        row.setBackgroundColor(getResources().getColor(R.color.purple_200))
-
         var jsonObject = jsonArray.getJSONObject(0)
         var iterator: Iterator<String> = jsonObject.keys()
         while (iterator.hasNext()) {
             val key = iterator.next()
-            val textview = TextView(this)
+            val textview = layoutInflater.inflate(R.layout.headertext, null) as TextView
             textview.text = key
             row.addView(textview)
         }
@@ -66,7 +67,7 @@ class DashboardActivity : AppCompatActivity() {
             iterator = jsonObject.keys()
             while (iterator.hasNext()) {
                 val key = iterator.next()
-                val textview = TextView(this)
+                val textview = layoutInflater.inflate(R.layout.rowtext, null) as TextView
                 textview.text = jsonObject.getString(key)
                 row.addView(textview)
             }

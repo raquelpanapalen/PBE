@@ -15,11 +15,11 @@ class MainActivity : AppCompatActivity() {
             val url = url_address_field.text.toString() //val url = "http://192.168.1.53:3001"
             val apiHandler = APIHandler(this, url)
 
-            val username = username_field.text.toString()
+            val username = username_field.text.toString() // val username = "Llavero azul"
             val userid = password_field.text.toString() //val userid = "8AACFA3F"
 
             // Auth
-            apiHandler.authenticate(userid) {
+            apiHandler.authenticate("$userid?username=$username") {
                 println(it)
                 val intent = Intent(this, DashboardActivity::class.java).apply {
                     putExtra("url", url)
