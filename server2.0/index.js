@@ -39,7 +39,7 @@ const server = http.createServer(async (req, res) => {
     const reqPath = url.pathname.split('/')
     reqPath.shift()
     query.userid = reqPath[0]
-
+    console.log(query)
     if (req.method == 'GET') {
         if(reqPath[0] == "index.html" || reqPath[0] == "resources"){
             res.writeHead(200)

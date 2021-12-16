@@ -1,13 +1,4 @@
-const getTasks = async (db, query, search) => { 
-    const match = search != null ? search.match(/\[(.*)\]/) : null
-    if (match != null) {
-        const restriction = `$${match.pop()}`
-        const dateString = `date${match.pop()}`
-        delete query[dateString]
-        query.date = { [restriction] : new Date() }  
-    } else if ('date' in query) {
-        query.date = new Date(query.date)
-    }
+const getTasks = async (db, query) => { 
     let limit = 0
     if ('limit' in query) {
         limit = parseInt(Object.values(query.limit)[0])
