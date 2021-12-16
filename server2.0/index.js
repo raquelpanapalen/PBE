@@ -1,5 +1,6 @@
 require('dotenv').config()
 const http = require('http')
+const fs = require('fs')
 const { randomUUID } = require('crypto')
 const mongoClient = require('mongodb').MongoClient
 const { initDB, parseParams } = require('./utils/index')
@@ -44,7 +45,7 @@ const server = http.createServer(async (req, res) => {
             res.writeHead(200)
             if(reqPath[0] == "index.html" && req.headers.cookie != undefined){
                 delete sessions[req.headers.cookie.split('=')[1]]
-                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + parsed.pathname, function(err, data){
+                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + url.pathname, function(err, data){
                     if(err){
                         res.write('Index not found')
                     } else {
@@ -58,7 +59,7 @@ const server = http.createServer(async (req, res) => {
                 res.write('Access restricted')
                 res.end()                
             } else {
-                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + parsed.pathname, function(err, data){
+                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + url.pathname, function(err, data){
                     if(err){
                         res.write('Index not found')
                     } else {
