@@ -89,34 +89,36 @@ body {
 .submit-button{
     position: absolute;
     top: 45%;
-    left: 40%;
+    left: 35%;
 }
 
 .submit-button input {
-    background: url(../images/arrow.png) no-repeat;
-    background-size: 90px;
-    width: 90px;
-    height: 90px;
+    background: url(../images/boton.png) no-repeat;
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
     border: none;
     position: relative;
 }
 
 .submit-button:hover input {
-    background: url(../images/arrow-hover.png) no-repeat;
-    background-size: 90px;
-    width: 90px;
-    height: 90px;
+
+    background: url(../images/boton_submit.png ) no-repeat;
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
     border: none;
     position: relative;
-}
+} 
+
 
 .submit-button:active input {
-    background: url(../images/arrow-active.png) no-repeat;
-    background-size: 90px;
-    width: 90px;
-    height: 90px;
+    background: url(../images/boton_submit_active.png ) no-repeat;
+    background-size: 150px;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
     border: none;
     position: relative;
@@ -137,11 +139,11 @@ body {
 
 /*Phone display*/
 
-@media only screen and (max-width: 768px) {
-    [class*="login-widget"] {
-        width: 100%;
+    @media only screen and (max-width: 768px) {
+        [class*="login-widget"] {
+            width: 100%;
+        }
+        [class*="image"] {
+            width: 30%;
+        }
     }
-    [class*="image"] {
-        width: 30%;
-    }
-}
