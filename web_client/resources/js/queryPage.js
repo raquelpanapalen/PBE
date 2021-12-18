@@ -33,10 +33,11 @@ function createTable(response) {
     var keys = Object.keys(response[0]);
 
     var row = document.createElement("tr");
+    
 
     for(var i=0; i < keys.length; i++){
         var texto = document.createTextNode(keys[i]);
-        var celda = document.createElement("td");
+        var celda = document.createElement("th");
 
         celda.appendChild(texto);
         row.appendChild(celda);

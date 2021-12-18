@@ -137,14 +137,32 @@ table {
     background-color: white;
     text-align: center;
     border-radius: 15px;
+    border-style: solid;
+    border-color: #03bfb5;
+    border-width: 5px;
+    border-collapse: separate;
     grid-area: wm;
     width: 80%;
-    margin-left: 11%;
+    position: relative;
+    top: 50%;
+    left: 60%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
 }
 
 th,td {
     padding: 15px;
+    border-left: 3px solid #03bfb5 ;
+    border-top: 3px solid #03bfb5 ;
 }
+th{
+    background-color: #03bfb5;
+    border-top: none;
+}
+td:first-child, th:first-child{
+    border-left: none;
+}
+
 
 /* 
 @media only screen and (max-width: 768px) {
