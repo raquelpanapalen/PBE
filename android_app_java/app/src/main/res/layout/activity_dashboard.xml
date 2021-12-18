@@ -44,11 +44,13 @@
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="50dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/custom_button"
+        app:backgroundTint="@null"
+        android:onClick="onLogout"
         android:text="Logout"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -62,8 +64,9 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/custom_button"
+        android:onClick="onSend"
+        app:backgroundTint="@null"
         android:text="Send"
-
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,7 +79,7 @@
 
 
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
@@ -89,9 +92,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/custom_tablelayout"
+            android:textColor="@android:color/white"
             android:stretchColumns="*">
 
             <TableRow
+                android:textColor="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

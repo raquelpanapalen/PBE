@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -18,34 +18,35 @@ public class DashboardActivity extends AppCompatActivity {
     private TextView welcome_text;
     private EditText query_text;
     private TableLayout table_layout;
-    private TableRow row;
     private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mongo);
+        setContentView(R.layout.activity_dashboard);
 
-        url = getIntent().getStringExtra("url").toString();
-        userid = getIntent().getStringExtra("userid").toString();
-        username = getIntent().getStringExtra("username").toString();
+        url = getIntent().getStringExtra("url");
+        userid = getIntent().getStringExtra("userid");
+        username = getIntent().getStringExtra("username");
 
-        welcome_text=(TextView) findViewById(R.id.welcome_text);
-        query_text = (EditText) findViewById(R.id.query_text);
-        table_layout= (TableLayout) findViewById(R.id.table_layout);
-        textView= (TextView) findViewById(R.id.textView);
+        welcome_text = findViewById(R.id.welcome_text);
+        query_text = findViewById(R.id.query_text);
+        table_layout = findViewById(R.id.table_layout);
+        textView = findViewById(R.id.textView);
+
+        String welcome_msg = "Welcome, "+username+"!";
+        welcome_text.setText(welcome_msg);
 
     }
 
     public void onSend(View v) {
         String query = query_text.getText().toString();
         if (query.isEmpty()) {
-            //Toast.makeText(this, "Enter a valid query", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Enter a valid query", Toast.LENGTH_LONG).show();
             return;
         }
-        APIHandler apiHandler = new APIHandler(DashboardActivity.this, url);
-        apiHandler.sendRequest(username,userid,query,table_layout);
-
+        APIHandler apiHandler = new APIHandler(DashboardActivity.this, url, getLayoutInflater(), table_layout);
+        apiHandler.sendRequest(userid+"/"+query);
     }
 
     public void onLogout(View view){
