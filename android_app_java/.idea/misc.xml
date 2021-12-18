@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/UPC/PBE/android_app_java/app/src/main/res/drawable/custom_button_logiin.xml" value="0.2703125" />
+        <entry key="..\:/UPC/PBE/android_app_java/app/src/main/res/drawable/custom_button_login.xml" value="0.2703125" />
+        <entry key="..\:/UPC/PBE/android_app_java/app/src/main/res/drawable/custom_tablelayout.xml" value="0.14635416666666667" />
+        <entry key="..\:/UPC/PBE/android_app_java/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/UPC/PBE/android_app_java/app/src/main/res/layout/activity_mongo.xml" value="0.13020833333333334" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

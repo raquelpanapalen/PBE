@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         url_text=(EditText) findViewById(R.id.url_address_field);
         user_text=(EditText) findViewById(R.id.username_field);
         password_text=(EditText) findViewById(R.id.password_field);
-        debug_text=(TextView) findViewById(R.id.debug_text);
+        //debug_text=(TextView) findViewById(R.id.debug_text);
     }
 
     public void onLogin(View view){

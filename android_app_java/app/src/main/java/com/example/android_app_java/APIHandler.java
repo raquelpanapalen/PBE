@@ -1,7 +1,10 @@
 package com.example.android_app_java;
 
+
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
+import java.util.Locale;
 
 import android.widget.TableLayout;
 
@@ -103,12 +107,16 @@ class APIHandler {
     public void createTable( JSONArray jsonArray,TableLayout table_layout) throws JSONException {
         table_layout.removeAllViews();
         TableRow row = new TableRow(context);
+        //row.setBackgroundColor();
+
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         Iterator<String> iterator = jsonObject.keys();
         while (iterator.hasNext()) {
             String key = iterator.next();
             TextView t= new TextView(context);
-            t.setText(key);
+
+            t.setText(key.toUpperCase(Locale.ROOT));
+
             //textview = TextView(this)
             //textview.text = key
             row.addView(t);
