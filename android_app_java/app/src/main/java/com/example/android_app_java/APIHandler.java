@@ -111,6 +111,10 @@ class APIHandler {
     }
 
     public void createTable(JSONArray jsonArray) throws JSONException {
+        if (jsonArray.length() == 0){
+            Toast.makeText(context, "No data matches your query.", Toast.LENGTH_LONG).show();
+            return;
+        }
         tableLayout.removeAllViews();
         TableRow row = new TableRow(context);
 
