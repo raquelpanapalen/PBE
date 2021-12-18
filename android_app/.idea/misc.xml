@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/UPC/PBE/android_app/app/src/main/res/drawable/custom_button_login.xml" value="0.2703125" />
+        <entry key="..\:/UPC/PBE/android_app/app/src/main/res/drawable/custom_tablelayout.xml" value="0.2703125" />
+        <entry key="..\:/UPC/PBE/android_app/app/src/main/res/layout/activity_dashboard.xml" value="0.2" />
+        <entry key="..\:/UPC/PBE/android_app/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/UPC/PBE/android_app/app/src/main/res/layout/headertext.xml" value="0.2513586956521739" />
+        <entry key="..\:/UPC/PBE/android_app/app/src/main/res/layout/rowtext.xml" value="0.15729166666666666" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/custom_button.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/custom_header.xml" value="0.371875" />

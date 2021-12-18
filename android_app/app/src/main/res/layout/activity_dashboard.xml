@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".DashboardActivity">
 
 
@@ -11,28 +12,16 @@
         android:id="@+id/query_text"
         android:layout_width="280dp"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/custom_button_login"
         android:ems="10"
+        android:gravity="center"
         android:hint="Enter your query"
         android:inputType="textPersonName"
         android:textColor="@color/black"
-
         android:textColorHint="@color/teal_700"
         app:layout_constraintEnd_toStartOf="@+id/send_button"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
-
-    <Button
-        android:id="@+id/send_button"
-        android:layout_width="82dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/custom_button"
-        android:text="Send"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
 
     <TextView
@@ -40,7 +29,7 @@
         android:layout_width="259dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:padding="8dp"
@@ -49,19 +38,48 @@
         android:textColor="@color/teal_700"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/logout_button"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/custom_button_login"
+        android:text="Logout"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/send_button"
+        android:layout_width="82dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/custom_button_login"
+        android:text="Send"
+
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
+
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="364dp"
-        android:layout_height="533dp"
+        android:layout_width="326dp"
+        android:layout_height="478dp"
 
 
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/query_text">
 
@@ -70,8 +88,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:stretchColumns="*"
-            android:background="@drawable/custom_tablelayout">
+            android:background="@drawable/custom_tablelayout"
+            android:stretchColumns="*">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -86,19 +104,6 @@
             </TableRow>
         </TableLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/custom_button"
-        android:text="Logout"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
