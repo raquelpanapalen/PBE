@@ -1,3 +1,5 @@
+
+
 const Http = new XMLHttpRequest();
 var user;
 
@@ -11,7 +13,7 @@ async function httprequestlogin() {
     Http.responseType = 'json';
     Http.send();
 
-
+    
 
     Http.onreadystatechange = (e) => {
         if(Http.readyState == XMLHttpRequest.DONE && Http.status >= 200 && Http.status < 400){
@@ -20,9 +22,9 @@ async function httprequestlogin() {
                 user = usuario;
                 window.location.href = "resources/pages/queryPage.html";
 
-
             }
         }
 
     }
 }
+
