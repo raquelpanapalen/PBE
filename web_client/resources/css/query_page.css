@@ -145,11 +145,7 @@ table {
     width: 80%;
     position: relative;
     top: 50%;
-<<<<<<< HEAD
-    left: 50%;
-=======
     left: 60vw;
->>>>>>> 0821a27613a501b1ea47e780e048ab0a18adabf8
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
 }
