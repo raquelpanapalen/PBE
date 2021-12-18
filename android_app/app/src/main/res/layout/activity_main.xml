@@ -13,7 +13,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/custom_button_login"
+        android:background="@drawable/custom_button"
         android:ems="10"
         android:gravity="center"
         android:hint="host:port"
@@ -34,7 +34,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:height="50dp"
-        android:background="@drawable/custom_button_login"
+        android:background="@drawable/custom_button"
         android:ems="10"
         android:gravity="center"
         android:hint="Password"
@@ -52,7 +52,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/custom_button_login"
+        android:background="@drawable/custom_button"
         android:ems="10"
         android:gravity="center"
         android:hint="Username"
@@ -69,7 +69,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="100dp"
-        android:background="@drawable/custom_button_login"
+        android:background="@drawable/custom_button"
 
         android:text="Login"
         android:textColor="@color/black"
@@ -87,7 +87,7 @@
         android:layout_marginEnd="112dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/negro_circulo" />
+        app:srcCompat="@drawable/rho_logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/custom_button_login"
+        android:background="@drawable/custom_button"
         android:ems="10"
         android:gravity="center"
         android:hint="Enter your query"
@@ -48,7 +48,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/custom_button_login"
+        android:background="@drawable/custom_button"
         android:text="Logout"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -61,7 +61,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/custom_button_login"
+        android:background="@drawable/custom_button"
         android:text="Send"
 
         android:textColor="@color/black"
@@ -100,7 +100,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="No data to be displayed. Enter a query." />
+                    android:text="No data to be displayed. Enter a query."
+                    android:textColor="@color/white"/>
             </TableRow>
         </TableLayout>
     </ScrollView>

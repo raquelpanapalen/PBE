@@ -3,8 +3,8 @@ package com.example.android_app_java;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,22 +26,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
-import java.util.Locale;
 
-import android.widget.TableLayout;
 
 class APIHandler {
     private Context context;
     private RequestQueue queue;
     private String DOMAIN;
+    private LayoutInflater layoutInflater;
+    private TableLayout tableLayout;
 
-    public APIHandler(Context oricontext , String domain) {
-        context = oricontext; //=MainActivity
-        //queue = Volley.newRequestQueue(context);
+    public APIHandler(Context context , String domain, Object... params) {
+        this.context = context;
         DOMAIN = domain;
+        if (params.length > 0) {
+            layoutInflater = (LayoutInflater) params[0];
+            tableLayout = (TableLayout) params[1];
+        }
 
         // Instantiate the cache
-        Cache cache = new DiskBasedCache(context.getCacheDir(), 1024 * 1024); // 1MB cap
+        Cache cache = new DiskBasedCache(this.context.getCacheDir(), 1024 * 1024); // 1MB cap
         // Set up the network to use HttpURLConnection as the HTTP client.
         Network network = new BasicNetwork(new HurlStack());
         // Instantiate the RequestQueue with the cache and network.
@@ -52,17 +55,21 @@ class APIHandler {
     }
 
 
-    public void authenticate(String username, String userid) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, DOMAIN + "/" + userid, null
+    public void authenticate(String credentials) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, DOMAIN + "/" + credentials, null
 
             ,new Response.Listener<JSONObject>() {
                     @Override
              public void onResponse(JSONObject response) {
-                        Toast.makeText(context.getApplicationContext(), "Login OK", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context.getApplicationContext(), "Login OK", Toast.LENGTH_LONG).show();
                         Intent myIntent=new Intent(context, DashboardActivity.class);
                         myIntent.putExtra("url", DOMAIN);
-                        myIntent.putExtra("userid", userid);
-                        myIntent.putExtra("username", username);
+                        try {
+                            myIntent.putExtra("userid", response.getString("id"));
+                            myIntent.putExtra("username", response.getString("username"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         context.startActivity(myIntent);
                         }}
 
@@ -78,14 +85,14 @@ class APIHandler {
         queue.add(jsonObjectRequest);
     }
 
-    public void sendRequest(String username, String userid, String query, TableLayout table_layout) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, DOMAIN + "/" + userid + "/" + query, null
+    public void sendRequest(String query) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, DOMAIN + "/" + query, null
                 ,new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Toast.makeText(context, "OK", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "OK", Toast.LENGTH_LONG).show();
                 try {
-                    createTable(response, table_layout);
+                    createTable(response);
                 } catch (JSONException e) {
                     Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                 }
@@ -103,36 +110,30 @@ class APIHandler {
         queue.add(jsonArrayRequest);
     }
 
-
-    public void createTable( JSONArray jsonArray,TableLayout table_layout) throws JSONException {
-        table_layout.removeAllViews();
+    public void createTable(JSONArray jsonArray) throws JSONException {
+        tableLayout.removeAllViews();
         TableRow row = new TableRow(context);
-        //row.setBackgroundColor();
 
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         Iterator<String> iterator = jsonObject.keys();
         while (iterator.hasNext()) {
             String key = iterator.next();
-            TextView t= new TextView(context);
-
-            t.setText(key.toUpperCase(Locale.ROOT));
-
-            //textview = TextView(this)
-            //textview.text = key
+            TextView t = (TextView) layoutInflater.inflate(R.layout.headertext, null);
+            t.setText(key);
             row.addView(t);
         }
-        table_layout.addView(row);
+        tableLayout.addView(row);
         for (int i = 0; i<jsonArray.length(); i++) {
             TableRow trow = new TableRow(context);
             jsonObject = jsonArray.getJSONObject(i);
             iterator = jsonObject.keys();
             while (iterator.hasNext()) {
                 String key = iterator.next();
-                TextView t = new TextView(context);
+                TextView t = (TextView) layoutInflater.inflate(R.layout.rowtext, null);
                 t.setText(jsonObject.getString(key));
                 trow.addView(t);
             }
-            table_layout.addView(trow);
+            tableLayout.addView(trow);
         }
     }
 
