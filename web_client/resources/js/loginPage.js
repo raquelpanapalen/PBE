@@ -1,5 +1,4 @@
 const Http = new XMLHttpRequest();
-var user;
 
 async function httprequestlogin() {
     var usuario = document.getElementById("username-field").value;
@@ -7,22 +6,20 @@ async function httprequestlogin() {
     sessionStorage.setItem("user", usuario);
     sessionStorage.setItem("id", password);
 
-    res = Http.open("GET", 'http://localhost:3001/' + password);
+    res = Http.open("GET", 'http://localhost:3001/' + password + '?username=' + usuario);
     Http.responseType = 'json';
     Http.send();
 
-
+    
 
     Http.onreadystatechange = (e) => {
-        if(Http.readyState == XMLHttpRequest.DONE && Http.status >= 200 && Http.status < 400){
-            if(Http.response.username == usuario){
-                console.log(Http.response)
-                user = usuario;
-                window.location.href = "resources/pages/queryPage.html";
-
-
-            }
+        if(Http.readyState == XMLHttpRequest.DONE && Http.status != 200){
+            alert("Datos de inicio de sesión incorrectos")
+        }
+        else if(Http.readyState == XMLHttpRequest.DONE && Http.status == 200){
+            window.location.href = "resources/pages/queryPage.html";
         }
 
     }
 }
+
