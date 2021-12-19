@@ -1,6 +1,7 @@
 var user = sessionStorage.getItem("user");
 var id = sessionStorage.getItem("id");
-
+const TIMEOUT = 300000;
+var timeout = window.setTimeout(on_logout, TIMEOUT);
 function diplayUsername(){
     document.getElementById("username").innerHTML = user;
 }
@@ -18,8 +19,15 @@ async function httprequestquery() {
         }
         if(Http.readyState == XMLHttpRequest.DONE && Http.status >= 200 && Http.status < 400){
             createTable(Http.response);
+           
         }     
+        window.clearTimeout(timeout);
+        timeout = window.setTimeout(on_logout,TIMEOUT);
     }
+}
+async function on_logout(){
+    window.location.href = "../../index.html";
+    sessionStorage.removeItem("user");
 }
 
 function createTable(response) {
@@ -33,10 +41,11 @@ function createTable(response) {
     var keys = Object.keys(response[0]);
 
     var row = document.createElement("tr");
+    
 
     for(var i=0; i < keys.length; i++){
         var texto = document.createTextNode(keys[i]);
-        var celda = document.createElement("td");
+        var celda = document.createElement("th");
 
         celda.appendChild(texto);
         row.appendChild(celda);

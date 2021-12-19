@@ -19,10 +19,11 @@ Needs: npm, nodejs, mongodb
 - `git clone https://github.com/raquelpanapalen/PBE.git && cd PBE/server` or `PBE/server2.0`
 - `npm install`
 - `sudo service mongod start`
-- Create .env file with `PORT` and `DATABASE_URL` fields. Example:
+- Create .env file with `PORT` and `DATABASE_URL` fields. For the web app, the field `WEB_FOLDER_PATH` is needed. Example:
 ```
 PORT = 3001
 DATABASE_URL = 'mongodb://localhost/pbe'
+WEB_FOLDER_PATH = '/home/user/Desktop/PBE/web_client'
 ```
 
 Dev mode (nodemon, only for [server](https://github.com/raquelpanapalen/PBE/tree/main/server)):

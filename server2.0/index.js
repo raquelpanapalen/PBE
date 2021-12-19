@@ -3,7 +3,7 @@ const http = require('http')
 const fs = require('fs')
 const { randomUUID } = require('crypto')
 const mongoClient = require('mongodb').MongoClient
-const { initDB, parseParams } = require('./utils/index')
+const { initDB, parseParams, parseCookie } = require('./utils/index')
 const getMarks = require('./routes/marks')
 const getUser = require('./routes/users')
 const getTasks = require('./routes/tasks')
@@ -12,6 +12,7 @@ const getTimetables = require('./routes/timetables')
 const DATABASE_URL = process.env.DATABASE_URL
 const PORT = process.env.PORT || 3001
 const CREATE_TESTDATA = process.env.npm_config_create_testdata
+const WEB_FOLDER_PATH = process.env.WEB_FOLDER_PATH
 
 var sessions = {}
 
@@ -39,13 +40,13 @@ const server = http.createServer(async (req, res) => {
     const reqPath = url.pathname.split('/')
     reqPath.shift()
     query.userid = reqPath[0]
-
+    const sessionID = req.headers.cookie ? parseCookie(req.headers.cookie)['session-id'] : null
     if (req.method == 'GET') {
         if(reqPath[0] == "index.html" || reqPath[0] == "resources"){
             res.writeHead(200)
-            if(reqPath[0] == "index.html" && req.headers.cookie != undefined){
-                delete sessions[req.headers.cookie.split('=')[1]]
-                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + url.pathname, function(err, data){
+            if(reqPath[0] == "index.html" && sessionID){
+                delete sessions[sessionID]
+                fs.readFile(WEB_FOLDER_PATH + url.pathname, function(err, data){
                     if(err){
                         res.write('Index not found')
                     } else {
@@ -54,12 +55,11 @@ const server = http.createServer(async (req, res) => {
                     res.end()
                 })
             }
-            if(reqPath[1] == "pages" && (req.headers.cookie == undefined || (sessions[req.headers.cookie.split('=')[1]] == undefined))){
-                console.log()
+            else if(reqPath[1] == "pages" && (req.headers.cookie == undefined || (sessions[sessionID] == undefined))){
                 res.write('Access restricted')
                 res.end()                
             } else {
-                fs.readFile('/home/joel/Desktop/PBE/PBE/web_client' + url.pathname, function(err, data){
+                fs.readFile(WEB_FOLDER_PATH + url.pathname, function(err, data){
                     if(err){
                         res.write('Index not found')
                     } else {

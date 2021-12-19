@@ -7,6 +7,10 @@ GET http://localhost:3001/8AACFA3F/marks
 ###
 GET http://localhost:3001/8AACFA3F/marks?mark[lt]=6
 ###
+GET http://localhost:3001/8AACFA3F/marks?mark[lt]=7.8&mark[gte]=6.5&subject=RP
+###
+GET http://localhost:3001/8AACFA3F/marks?mark[lt]=7.8&mark[gte]=5.5
+###
 GET http://localhost:3001/8AACFA3F/marks?mark[lt]=6&subject=PBE
 ###
 GET http://localhost:3001/8AACFA3F/marks?subject=RP
@@ -18,6 +22,8 @@ GET http://localhost:3001/8AACFA3F/tasks
 GET http://localhost:3001/8AACFA3F/tasks?subject=PSVAC
 ###
 GET http://localhost:3001/8AACFA3F/tasks?date=2021-12-16
+###
+GET http://localhost:3001/8AACFA3F/tasks?date[gte]=2021-11-25
 ###
 GET http://localhost:3001/8AACFA3F/tasks?date[gte]=now&limit=2
 ###
