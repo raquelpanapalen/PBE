@@ -53,7 +53,6 @@ const parseParams = (querystring) => {
                         value = new Date()
                     } else {
                         value = new Date(initial_value)
-                        console.log(value)
                     }
                     break;
                 case 'mark':
@@ -84,5 +83,13 @@ const parseParams = (querystring) => {
     
     return obj
 }
+
+const parseCookie = cookie =>
+  cookie.split(';')
+  .map(v => v.split('='))
+  .reduce((acc, v) => {
+    acc[decodeURIComponent(v[0].trim())] = decodeURIComponent(v[1].trim());
+    return acc;
+  }, {});
   
-module.exports = { initDB, days, parseParams }
+module.exports = { initDB, days, parseParams, parseCookie }

@@ -1,8 +1,10 @@
 package com.example.androidapp
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var url: String
     private lateinit var userid: String
     private lateinit var username: String
+    private lateinit var timer: CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +29,11 @@ class DashboardActivity : AppCompatActivity() {
         username = intent.getStringExtra("username").toString()
 
         welcome_text.text = getString(R.string.welcome_message, username)
+        startTimer(this)
 
         send_button.setOnClickListener {
+            timer.cancel()
+            startTimer(this)
             val query = query_text.text.toString()
             if (query.isEmpty()) {
                 Toast.makeText(this, "Enter a valid query", Toast.LENGTH_LONG).show()
@@ -40,6 +46,7 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         logout_button.setOnClickListener {
+            timer.cancel()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
@@ -73,5 +80,17 @@ class DashboardActivity : AppCompatActivity() {
             }
             table_layout.addView(row)
         }
+    }
+
+    private fun startTimer(context: Context) {
+        timer = object:CountDownTimer(5*60*1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) { }
+
+            override fun onFinish() {
+                val intent = Intent(context, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        timer.start()
     }
 }
